@@ -10,18 +10,18 @@ class Telegram:
     OWNER_ID = int(env.get('OWNER_ID', '949657126'))
     WORKERS = int(env.get("WORKERS", "8"))  # 6 workers = 6 commands at once
     DATABASE_URL = str(env.get('DATABASE_URL', 'mongodb+srv://johnwick:NO5VzwVgSrJ9KBtC@cluster0.5iie9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'))
-    UPDATES_CHANNEL = str(env.get('UPDATES_CHANNEL', "Telegram"))
+    UPDATES_CHANNEL = str(env.get('UPDATES_CHANNEL', "Movie_Loverzz"))
     SESSION_NAME = str(env.get('SESSION_NAME', 'FileStream'))
-    FORCE_SUB_ID = env.get('FORCE_SUB_ID', None)
-    FORCE_SUB = env.get('FORCE_UPDATES_CHANNEL', False)
+    FORCE_SUB_ID = env.get('FORCE_SUB_ID', '-1002230197603')
+    FORCE_SUB = env.get('FORCE_UPDATES_CHANNEL', True)
     FORCE_SUB = True if str(FORCE_SUB).lower() == "true" else False
     SLEEP_THRESHOLD = int(env.get("SLEEP_THRESHOLD", "60"))
     FILE_PIC = env.get('FILE_PIC', "https://graph.org/file/a319f6b9ce3b993c6e22f.jpg")
     START_PIC = env.get('START_PIC', "https://graph.org/file/a319f6b9ce3b993c6e22f.jpg")
     VERIFY_PIC = env.get('VERIFY_PIC', "https://graph.org/file/736e21cc0efa4d8c2a0e4.jpg")
-    MULTI_CLIENT = False
-    FLOG_CHANNEL = int(env.get("FLOG_CHANNEL", None))   # Logs channel for file logs
-    ULOG_CHANNEL = int(env.get("ULOG_CHANNEL", None))   # Logs channel for user logs
+    MULTI_CLIENT = True
+    FLOG_CHANNEL = int(env.get("FLOG_CHANNEL", "-1002710313786"))   # Logs channel for file logs
+    ULOG_CHANNEL = int(env.get("ULOG_CHANNEL", "-1002710313786"))   # Logs channel for user logs
     MODE = env.get("MODE", "primary")
     SECONDARY = True if MODE.lower() == "secondary" else False
     AUTH_USERS = list(set(int(x) for x in str(env.get("AUTH_USERS", "")).split()))
