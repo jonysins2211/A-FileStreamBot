@@ -14,13 +14,13 @@ class LANG(object):
 <b>- sᴇɴᴅ ᴍᴇ ᴀɴʏ ᴅᴏᴄᴜᴍᴇɴᴛ ᴏʀ ᴍᴇᴅɪᴀ</b>
 <b>- ɪ'ʟʟ ᴘʀᴏᴠɪᴅᴇ sᴛʀᴇᴀᴍᴀʙʟᴇ ʟɪɴᴋ</b>\n
 <b>🔞 ᴀᴅᴜʟᴛ ᴄᴏɴᴛᴇɴᴛ sᴛʀɪᴄᴛʟʏ ᴘʀᴏʜɪʙɪᴛᴇᴅ.</b>\n
-<i><b> ʀᴇᴘᴏʀᴛ ʙᴜɢs ᴛᴏ <a href='https://telegram.me/AvishkarPatil'>ᴅᴇᴠᴇʟᴏᴘᴇʀ</a></b></i>"""
+<i><b> ʀᴇᴘᴏʀᴛ ʙᴜɢs ᴛᴏ <a href='https://telegram.me/Mladminbot>ᴅᴇᴠᴇʟᴏᴘᴇʀ</a></b></i>"""
 
     ABOUT_TEXT = """
 <b>⚜ ᴍʏ ɴᴀᴍᴇ : {}</b>\n
 <b>✦ ᴠᴇʀsɪᴏɴ : {}</b>
-<b>✦ ᴜᴘᴅᴀᴛᴇᴅ ᴏɴ : 06-January-2024</b>
-<b>✦ ᴅᴇᴠᴇʟᴏᴘᴇʀ : <a href='https://telegram.me/AvishkarPatil'>Avishkar Patil</a></b>\n
+<b>✦ ᴜᴘᴅᴀᴛᴇᴅ ᴏɴ : 06-Sept-2025</b>
+<b>✦ ᴅᴇᴠᴇʟᴏᴘᴇʀ : <a href='https://telegram.me/Mladminbot>MoonKnight</a></b>\n
 """
 
     STREAM_TEXT = """
@@ -29,14 +29,14 @@ class LANG(object):
 <b>📦 Fɪʟᴇ ꜱɪᴢᴇ :</b> <code>{}</code>\n
 <b>📥 Dᴏᴡɴʟᴏᴀᴅ :</b> <code>{}</code>\n
 <b>🖥 Wᴀᴛᴄʜ :</b> <code>{}</code>\n
-<b>🔗 Sʜᴀʀᴇ :</b> <code>{}</code>\n"""
+<b>⌛️ Note: 𝙼𝚊𝚗𝚊 𝙱𝚘𝚝 𝙽𝚊𝚌𝚑𝚒𝚝𝚑𝚎𝚢 𝙼𝚒 𝙵𝚛𝚒𝚎𝚗𝚍𝚜 𝙺𝚒 𝙺𝚞𝚍𝚊 𝚂𝚑𝚊𝚛𝚎 𝙲𝚑𝚎𝚢𝚊𝚗𝚍𝚒😇\n"""
 
     STREAM_TEXT_X = """
 <i><u>𝗬𝗼𝘂𝗿 𝗟𝗶𝗻𝗸 𝗚𝗲𝗻𝗲𝗿𝗮𝘁𝗲𝗱 !</u></i>\n
 <b>📂 Fɪʟᴇ ɴᴀᴍᴇ :</b> <b>{}</b>\n
 <b>📦 Fɪʟᴇ ꜱɪᴢᴇ :</b> <code>{}</code>\n
 <b>📥 Dᴏᴡɴʟᴏᴀᴅ :</b> <code>{}</code>\n
-<b>🔗 Sʜᴀʀᴇ :</b> <code>{}</code>\n"""
+<b>⌛️ Note: 𝙼𝚊𝚗𝚊 𝙱𝚘𝚝 𝙽𝚊𝚌𝚑𝚒𝚝𝚑𝚎𝚢 𝙼𝚒 𝙵𝚛𝚒𝚎𝚗𝚍𝚜 𝙺𝚒 𝙺𝚞𝚍𝚊 𝚂𝚑𝚊𝚛𝚎 𝙲𝚑𝚎𝚢𝚊𝚗𝚍𝚒😇\n"""
 
 
     BAN_TEXT = "__Sᴏʀʀʏ Sɪʀ, Yᴏᴜ ᴀʀᴇ Bᴀɴɴᴇᴅ ᴛᴏ ᴜsᴇ ᴍᴇ.__\n\n**[Cᴏɴᴛᴀᴄᴛ Dᴇᴠᴇʟᴏᴘᴇʀ](tg://user?id={}) Tʜᴇʏ Wɪʟʟ Hᴇʟᴘ Yᴏᴜ**"
