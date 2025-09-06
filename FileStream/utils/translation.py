@@ -39,7 +39,7 @@ class LANG(object):
 <b>⌛️ Note: 𝙼𝚊𝚗𝚊 𝙱𝚘𝚝 𝙽𝚊𝚌𝚑𝚒𝚝𝚑𝚎𝚢 𝙼𝚒 𝙵𝚛𝚒𝚎𝚗𝚍𝚜 𝙺𝚒 𝙺𝚞𝚍𝚊 𝚂𝚑𝚊𝚛𝚎 𝙲𝚑𝚎𝚢𝚊𝚗𝚍𝚒😇\n"""
 
 
-    BAN_TEXT = "__Sᴏʀʀʏ Sɪʀ, Yᴏᴜ ᴀʀᴇ Bᴀɴɴᴇᴅ ᴛᴏ ᴜsᴇ ᴍᴇ.__\n\n**[Cᴏɴᴛᴀᴄᴛ Dᴇᴠᴇʟᴏᴘᴇʀ](tg://user?id={}) Tʜᴇʏ Wɪʟʟ Hᴇʟᴘ Yᴏᴜ**"
+    BAN_TEXT = "__Sᴏʀʀʏ Sɪʀ, Yᴏᴜ ᴀʀᴇ Bᴀɴɴᴇᴅ ᴛᴏ ᴜsᴇ ᴍᴇ.__\n\n**[Cᴏɴᴛᴀᴄᴛ Dᴇᴠᴇʟᴏᴘᴇʀ]- @Mladminbot Tʜᴇʏ Wɪʟʟ Hᴇʟᴘ Yᴏᴜ**"
 
 
 class BUTTON(object):
