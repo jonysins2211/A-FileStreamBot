@@ -120,8 +120,8 @@ async def media_streamer(request: web.Request, db_id: str):
     if not mime_type:
         mime_type = mimetypes.guess_type(file_name)[0] or "application/octet-stream"
 
-    # if "video/" in mime_type or "audio/" in mime_type:
-    #     disposition = "inline"
+    if "video/" in mime_type or "audio/" in mime_type:
+         disposition = "inline"
 
     return web.Response(
         status=206 if range_header else 200,
