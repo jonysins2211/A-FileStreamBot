@@ -28,6 +28,7 @@
             <a href="#abtus" class="about-btn magnet" onclick="toggleWidthnav(this)">ABOUT</a>
         </div>
     </nav>
+
     <center>
         <div class="about-nav">
             <a href="#abtus" class="wlcm magnet" onclick="toggleWidth(this)">WELCOME</a>
@@ -49,19 +50,19 @@
                 </div>
                 <div class="downloadBtn">
                     <button class="magnet" onclick="streamDownload()">
-                        <img style="height: 30px;" src="https://i.ibb.co/RjzYttX/dl.png" alt="">Download Video
+                        <img style="height: 30px;" src="https://i.ibb.co/RjzYttX/dl.png" alt="">download video
                     </button>
                     <button class="magnet" onclick="copyStreamLink()">
-                        <img src="https://i.ibb.co/CM4Y586/link.png" alt="Copy Link">Copy Link
+                        <img src="https://i.ibb.co/CM4Y586/link.png" alt="Copy Link">copy link
                     </button>
-                    <button class="magnet" onclick="openVLC()">
-                        <img src="https://i.ibb.co/px6fQs1/vlc.png" alt="">Watch in VLC
+                    <button class="magnet" onclick="vlc_player()">
+                        <img src="https://i.ibb.co/px6fQs1/vlc.png" alt="">watch in VLC PLAYER
                     </button>
-                    <button class="magnet" onclick="openMX()">
-                        <img src="https://i.ibb.co/41WvtQ3/mx.png" alt="">Watch in MX Player
+                    <button class="magnet" onclick="mx_player()">
+                        <img src="https://i.ibb.co/41WvtQ3/mx.png" alt="">watch in MX PLAYER
                     </button>
                     <button class="magnet" onclick="n_player()">
-                        <img src="https://i.ibb.co/Hd2dS4t/nPlayer.png" alt="">Watch in nPlayer
+                        <img src="https://i.ibb.co/Hd2dS4t/nPlayer.png" alt="">watch in nPlayer
                     </button>
                 </div>
             </div>
@@ -72,9 +73,8 @@
                         <div class="abt-sec" id="abtus" style="padding: 160px 30px;">
                             <h1 style="text-align: center;">WELCOME TO OUR <Span>FILE STREAM</Span> BOT</h1>
                             <p style="text-align: center; line-height: 2;word-spacing: 2px;  letter-spacing: 0.8px;">
-                                This is a Telegram Bot to Stream <span>Movies</span> and <span>Series</span> directly on
-                                Telegram. You can also <span>download</span> them if you want. This bot is developed by 
-                                <a href="https://github.com/AviPatilPro"><span style="font-weight: 700;">Avi</span></a>
+                                This is a Telegram Bot to Stream <span>Movies</span> and <span>Series</span> directly on Telegram. You can also
+                                <span>download</span> them if you want. This bot is developed by <a href="https://github.com/AviPatilPro"><span style="font-weight: 700;">Avi</span></a>
                                 <br><br>If you like this bot, then don't forget to share it with your friends and family.
                             </p>
                         </div>
@@ -115,11 +115,10 @@
                     <button class="ranMovBtn" onclick="getDets()">Get More Movies Suggestion</button>
                 </div>
             </center>
+
             <center>
                 <div class="copyright">
-                    <h5 class="text-center">Copyright © 2024 
-                        <a href="https://github.com/AviPatilPro"><span style="font-weight: 700;">Avishkar Patil</span></a>. 
-                        All Rights Reserved.</h5>
+                    <h5 class="text-center">Copyright © 2024 <a href="https://github.com/AviPatilPro"><span style="font-weight: 700;">Avishkar Patil</span></a>. All Rights Reserved.</h5>
                 </div>
             </center>
         </footer>
@@ -135,20 +134,32 @@
 <script src="https://proavipatil.github.io/data/fs/src/script.js"></script>
 
 <script>
-    function openVLC() {
-        let fileUrl = "{{file_url|safe}}"; // direct download URL
-        window.location.href = `intent:${fileUrl}#Intent;package=org.videolan.vlc;type=video/*;scheme=http;end`;
+    // Function to open VLC
+    function vlc_player() {
+        window.location.href = `vlc://{{file_url}}`;
     }
 
-    function openMX() {
-        let fileUrl = "{{file_url|safe}}"; // direct download URL
-        // MX Player Free
-        window.location.href = `intent:${fileUrl}#Intent;package=com.mxtech.videoplayer.ad;type=video/*;scheme=http;end`;
-        // MX Player Pro fallback
-        setTimeout(() => {
-            window.location.href = `intent:${fileUrl}#Intent;package=com.mxtech.videoplayer.pro;type=video/*;scheme=http;end`;
-        }, 1500);
+    // Function to open MX Player
+    function mx_player() {
+        window.location.href = `intent://{{file_url}}#Intent;package=com.mxtech.videoplayer.ad;end`;
+    }
+
+    // Function to open nPlayer
+    function n_player() {
+        window.location.href = `nplayer-http://{{file_url}}`;
+    }
+
+    // Function to copy streaming link
+    function copyStreamLink() {
+        navigator.clipboard.writeText("{{file_url}}")
+            .then(() => alert("Stream link copied!"))
+            .catch(err => console.error(err));
+    }
+
+    // Function to download video
+    function streamDownload() {
+        window.location.href = "{{file_url}}";
     }
 </script>
 
-                                    </html>
+                                </html>
