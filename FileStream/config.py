@@ -6,7 +6,7 @@ load_dotenv()
 class Telegram:
     API_ID = int(env.get("API_ID", "29224369"))
     API_HASH = str(env.get("API_HASH", "766627e7954ccc7d54fa5556f8ff3f65"))
-    BOT_TOKEN = str(env.get("BOT_TOKEN", "7243323940:AAFTIOqvqnDcxe1V0e2Q4kRFfTm0vWZsgao"))
+    BOT_TOKEN = str(env.get("BOT_TOKEN", ""))
     OWNER_ID = int(env.get('OWNER_ID', '949657126'))
     WORKERS = int(env.get("WORKERS", "8"))  # 6 workers = 6 commands at once
     DATABASE_URL = str(env.get('DATABASE_URL', 'mongodb+srv://johnwick:NO5VzwVgSrJ9KBtC@cluster0.5iie9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'))
@@ -33,8 +33,8 @@ class Server:
     HAS_SSL = str(env.get("HAS_SSL", "1").lower()) in ("1", "true", "t", "yes", "y")
     NO_PORT = str(env.get("NO_PORT", "1").lower()) in ("1", "true", "t", "yes", "y")
     FQDN = str(env.get("FQDN", BIND_ADDRESS))
-    URL = "https://movie-loverz-bot-e60fe5f150c6.herokuapp.com/".format(
-        "s" if HAS_SSL else "https://movie-loverz-bot-e60fe5f150c6.herokuapp.com/", FQDN, "https://movie-loverz-bot-e60fe5f150c6.herokuapp.com/" if NO_PORT else ":" + str(PORT)
+    URL = "https://shared-danni-ravana-04161957.koyeb.app/".format(
+        "s" if HAS_SSL else "https://shared-danni-ravana-04161957.koyeb.app/", FQDN, "https://shared-danni-ravana-04161957.koyeb.app/" if NO_PORT else ":" + str(PORT)
     )
 
 
