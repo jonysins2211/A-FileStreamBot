@@ -134,32 +134,33 @@
 <script src="https://proavipatil.github.io/data/fs/src/script.js"></script>
 
 <script>
-    // Function to open VLC
+    const FILE_URL = "https://yourserver.com/dl/{{file_id}}";
+
     function vlc_player() {
-        window.location.href = `vlc://{{file_url}}`;
+        // Open VLC mobile app
+        window.open(FILE_URL, "_blank");
     }
 
-    // Function to open MX Player
     function mx_player() {
-        window.location.href = `intent://{{file_url}}#Intent;package=com.mxtech.videoplayer.ad;end`;
+        // MX Player Android intent
+        const intent = `intent:${FILE_URL}#Intent;package=com.mxtech.videoplayer.ad;scheme=https;end`;
+        window.location.href = intent;
     }
 
-    // Function to open nPlayer
     function n_player() {
-        window.location.href = `nplayer-http://{{file_url}}`;
+        // nPlayer iOS custom URL
+        window.location.href = `nplayer-http://${FILE_URL}`;
     }
 
-    // Function to copy streaming link
     function copyStreamLink() {
-        navigator.clipboard.writeText("{{file_url}}")
+        navigator.clipboard.writeText(FILE_URL)
             .then(() => alert("Stream link copied!"))
             .catch(err => console.error(err));
     }
 
-    // Function to download video
     function streamDownload() {
-        window.location.href = "{{file_url}}";
+        window.location.href = FILE_URL;
     }
 </script>
 
-                                </html>
+                            </html>
