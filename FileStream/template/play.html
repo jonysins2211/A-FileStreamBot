@@ -40,6 +40,7 @@
         <div class="inner">
             <div class="main" id="main">
                 <video id="player" class="player" src="{{file_url}}" type="video/mp4" playsinline controls width="100%"></video>
+                <div class="player"></div>
                 <div class="file-name">
                     <h4 style="display: inline;">File Name: </h4>
                     <p style="display: inline;" id="myDiv">{{file_name}}</p><br>
@@ -48,19 +49,19 @@
                 </div>
                 <div class="downloadBtn">
                     <button class="magnet" onclick="streamDownload()">
-                        <img style="height: 30px;" src="https://i.ibb.co/RjzYttX/dl.png" alt="">download video
+                        <img style="height: 30px;" src="https://i.ibb.co/RjzYttX/dl.png" alt="">Download Video
                     </button>
                     <button class="magnet" onclick="copyStreamLink()">
-                        <img src="https://i.ibb.co/CM4Y586/link.png" alt="Copy Link">copy link
+                        <img src="https://i.ibb.co/CM4Y586/link.png" alt="Copy Link">Copy Link
                     </button>
-                    <button class="magnet" onclick="vlc_player()">
-                        <img src="https://i.ibb.co/px6fQs1/vlc.png" alt="">watch in VLC PLAYER
+                    <button class="magnet" onclick="openVLC()">
+                        <img src="https://i.ibb.co/px6fQs1/vlc.png" alt="">Watch in VLC
                     </button>
-                    <button class="magnet" onclick="mx_player()">
-                        <img src="https://i.ibb.co/41WvtQ3/mx.png" alt="">watch in MX PLAYER
+                    <button class="magnet" onclick="openMX()">
+                        <img src="https://i.ibb.co/41WvtQ3/mx.png" alt="">Watch in MX Player
                     </button>
                     <button class="magnet" onclick="n_player()">
-                        <img src="https://i.ibb.co/Hd2dS4t/nPlayer.png" alt="">watch in nPlayer
+                        <img src="https://i.ibb.co/Hd2dS4t/nPlayer.png" alt="">Watch in nPlayer
                     </button>
                 </div>
             </div>
@@ -114,13 +115,11 @@
                     <button class="ranMovBtn" onclick="getDets()">Get More Movies Suggestion</button>
                 </div>
             </center>
-
             <center>
                 <div class="copyright">
                     <h5 class="text-center">Copyright © 2024 
                         <a href="https://github.com/AviPatilPro"><span style="font-weight: 700;">Avishkar Patil</span></a>. 
-                        All Rights Reserved.
-                    </h5>
+                        All Rights Reserved.</h5>
                 </div>
             </center>
         </footer>
@@ -136,44 +135,20 @@
 <script src="https://proavipatil.github.io/data/fs/src/script.js"></script>
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        new Plyr('#player');
-    });
-
-    function streamDownload() {
-        window.open("{{file_url}}", "_blank");
+    function openVLC() {
+        let fileUrl = "{{file_url|safe}}"; // direct download URL
+        window.location.href = `intent:${fileUrl}#Intent;package=org.videolan.vlc;type=video/*;scheme=http;end`;
     }
 
-    function copyStreamLink() {
-        navigator.clipboard.writeText("{{file_url}}");
-    }
-
-    // VLC Player
-    function vlc_player() {
-        const link = encodeURIComponent("{{file_url}}");
-        window.location.href = `intent://${link}#Intent;package=org.videolan.vlc;type=video/mp4;scheme=http;end`;
-    }
-
-    // MX Player (try free first, fallback to pro)
-    function mx_player() {
-        const link = encodeURIComponent("{{file_url}}");
-        // Try MX Player Free
-        let freeIntent = `intent://${link}#Intent;package=com.mxtech.videoplayer.ad;type=video/mp4;scheme=http;end`;
-        // Fallback to MX Player Pro
-        let proIntent = `intent://${link}#Intent;package=com.mxtech.videoplayer.pro;type=video/mp4;scheme=http;end`;
-        // Try free version first
-        window.location.href = freeIntent;
-        // If fails, wait and try Pro
+    function openMX() {
+        let fileUrl = "{{file_url|safe}}"; // direct download URL
+        // MX Player Free
+        window.location.href = `intent:${fileUrl}#Intent;package=com.mxtech.videoplayer.ad;type=video/*;scheme=http;end`;
+        // MX Player Pro fallback
         setTimeout(() => {
-            window.location.href = proIntent;
-        }, 1000);
-    }
-
-    // nPlayer
-    function n_player() {
-        const link = encodeURIComponent("{{file_url}}");
-        window.location.href = `nplayer-${link}`;
+            window.location.href = `intent:${fileUrl}#Intent;package=com.mxtech.videoplayer.pro;type=video/*;scheme=http;end`;
+        }, 1500);
     }
 </script>
 
-</html>
+                                    </html>
