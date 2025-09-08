@@ -33,8 +33,8 @@ class Server:
     HAS_SSL = str(env.get("HAS_SSL", "1").lower()) in ("1", "true", "t", "yes", "y")
     NO_PORT = str(env.get("NO_PORT", "1").lower()) in ("1", "true", "t", "yes", "y")
     FQDN = str(env.get("FQDN", BIND_ADDRESS))
-    URL = "https://shared-danni-ravana-04161957.koyeb.app/".format(
-        "s" if HAS_SSL else "https://shared-danni-ravana-04161957.koyeb.app/", FQDN, "https://shared-danni-ravana-04161957.koyeb.app/" if NO_PORT else ":" + str(PORT)
+    URL = "https://movie-loverz-bot-e60fe5f150c6.herokuapp.com/".format(
+        "s" if HAS_SSL else "https://movie-loverz-bot-e60fe5f150c6.herokuapp.com/", FQDN, "https://movie-loverz-bot-e60fe5f150c6.herokuapp.com/" if NO_PORT else ":" + str(PORT)
     )
 
 
