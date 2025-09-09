@@ -1,64 +1,84 @@
-from flask import Blueprint, request, Response, abort, stream_with_context
-from pyrogram import Client
-from FileStream.utils.file_properties import get_file_properties
+import math
+import mimetypes
+import logging
+import traceback
+from aiohttp import web
+from FileStream.bot import multi_clients, work_loads
+from FileStream.config import Telegram
+from FileStream.server.exceptions import FIleNotFound, InvalidHash
+from FileStream import utils
 
-stream_routes = Blueprint("stream_routes", __name__)
+routes = web.RouteTableDef()
 
-@stream_routes.route("/dl/<file_id>")
-def stream_file(file_id):
+@routes.get("/dl/{file_id}")
+async def stream_file(request: web.Request):
     """
     Stream file directly for VLC, MX Player, nPlayer, Browser
     """
-    app: Client = request.app
-
     try:
-        # Get file info
-        file_properties = app.loop.run_until_complete(get_file_properties(app, file_id))
-        if not file_properties:
-            abort(404)
+        file_id = request.match_info["file_id"]
 
-        file_size = file_properties.file_size
-        file_name = file_properties.file_name
-        mime_type = file_properties.mime_type or "application/octet-stream"
+        # Pick least loaded client
+        index = min(work_loads, key=work_loads.get)
+        tg_client = multi_clients[index]
 
+        # Create streamer
+        tg_connect = utils.ByteStreamer(tg_client)
+        file_info = await tg_connect.get_file_properties(file_id, multi_clients)
+
+        if not file_info:
+            raise FIleNotFound("File not found!")
+
+        file_size = file_info.file_size
+        file_name = utils.get_name(file_info)
+        mime_type = file_info.mime_type or mimetypes.guess_type(file_name)[0] or "application/octet-stream"
+
+        # Handle Range header
         range_header = request.headers.get("Range", None)
         if range_header:
-            byte1, byte2 = 0, None
-            if "=" in range_header:
-                ranges = range_header.split("=")[1]
-                if "-" in ranges:
-                    parts = ranges.split("-")
-                    if parts[0]:
-                        byte1 = int(parts[0])
-                    if parts[1]:
-                        byte2 = int(parts[1])
-            length = file_size - byte1
-            if byte2 is not None:
-                length = byte2 - byte1 + 1
+            from_bytes, until_bytes = range_header.replace("bytes=", "").split("-")
+            from_bytes = int(from_bytes) if from_bytes else 0
+            until_bytes = int(until_bytes) if until_bytes else file_size - 1
+        else:
+            from_bytes = 0
+            until_bytes = file_size - 1
 
-            def generate():
-                for chunk in app.stream_media(file_id, offset=byte1, limit=length):
-                    yield chunk
+        if from_bytes < 0 or until_bytes >= file_size or until_bytes < from_bytes:
+            return web.Response(
+                status=416,
+                headers={"Content-Range": f"bytes */{file_size}"},
+                text="416: Range Not Satisfiable"
+            )
 
-            rv = Response(stream_with_context(generate()),
-                          status=206, mimetype=mime_type)
-            rv.headers.add("Content-Range", f"bytes {byte1}-{byte1+length-1}/{file_size}")
-            rv.headers.add("Accept-Ranges", "bytes")
-            rv.headers.add("Content-Length", str(length))
-            rv.headers.add("Content-Disposition", f'inline; filename="{file_name}"')
-            return rv
+        chunk_size = 1024 * 1024
+        offset = from_bytes - (from_bytes % chunk_size)
+        first_part_cut = from_bytes - offset
+        last_part_cut = until_bytes % chunk_size + 1
+        part_count = math.ceil(until_bytes / chunk_size) - math.floor(offset / chunk_size)
 
-        # Full file stream if no range header
-        def generate_full():
-            for chunk in app.stream_media(file_id):
-                yield chunk
+        body = tg_connect.yield_file(
+            file_info, index, offset, first_part_cut, last_part_cut, part_count, chunk_size
+        )
 
-        rv = Response(stream_with_context(generate_full()), mimetype=mime_type)
-        rv.headers.add("Content-Length", str(file_size))
-        rv.headers.add("Content-Disposition", f'inline; filename="{file_name}"')
-        rv.headers.add("Accept-Ranges", "bytes")
-        return rv
+        headers = {
+            "Content-Type": mime_type,
+            "Content-Range": f"bytes {from_bytes}-{until_bytes}/{file_size}",
+            "Content-Length": str(until_bytes - from_bytes + 1),
+            "Accept-Ranges": "bytes",
+            "Content-Disposition": f'inline; filename="{file_name}"'
+        }
 
+        return web.Response(
+            status=206 if range_header else 200,
+            body=body,
+            headers=headers
+        )
+
+    except InvalidHash as e:
+        raise web.HTTPForbidden(text=e.message)
+    except FIleNotFound as e:
+        raise web.HTTPNotFound(text=e.message)
     except Exception as e:
-        print(f"Streaming error: {e}")
-        abort(500)
+        traceback.print_exc()
+        logging.error(f"Streaming error: {e}")
+        raise web.HTTPInternalServerError(text="Internal Server Error")
